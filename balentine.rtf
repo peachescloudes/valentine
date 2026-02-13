@@ -1,0 +1,167 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww34000\viewh21460\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>For My Favorite Human</title>\
+    <style>\
+        :root \{\
+            --primary-pink: #ff4d6d;\
+            --soft-bg: #fff0f3;\
+        \}\
+\
+        body \{\
+            margin: 0;\
+            background-color: var(--soft-bg);\
+            font-family: 'Arial', sans-serif;\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            height: 100vh;\
+            overflow: hidden;\
+            cursor: url('https://cur.cursors-4u.net/symbols/sym-9/sym847.cur'), auto;\
+        \}\
+\
+        #container \{\
+            text-align: center;\
+            padding: 40px;\
+            background: rgba(255, 255, 255, 0.9);\
+            border-radius: 30px;\
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);\
+            max-width: 400px;\
+            transition: all 0.5s ease;\
+        \}\
+\
+        h1 \{ color: var(--primary-pink); font-size: 2rem; margin-bottom: 20px; \}\
+\
+        .btn-group \{\
+            display: flex;\
+            justify-content: center;\
+            align-items: center;\
+            gap: 20px;\
+            height: 100px; /* Space for scaling button */\
+        \}\
+\
+        button \{\
+            padding: 12px 25px;\
+            border: none;\
+            border-radius: 25px;\
+            font-weight: bold;\
+            cursor: pointer;\
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);\
+        \}\
+\
+        #yesBtn \{ background: var(--primary-pink); color: white; z-index: 100; \}\
+        #noBtn \{ background: #ced4da; color: #495057; \}\
+\
+        .hidden \{ display: none; \}\
+        \
+        /* Floating Confetti */\
+        .confetti \{\
+            position: absolute;\
+            font-size: 24px;\
+            animation: fall 3s linear forwards;\
+        \}\
+\
+        @keyframes fall \{\
+            to \{ transform: translateY(110vh) rotate(360deg); \}\
+        \}\
+    </style>\
+</head>\
+<body>\
+\
+    <div id="container">\
+        <div id="main-content">\
+            <img id="status-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMmo3N3p6am9uN3p6am9uN3p6am9uN3p6am9uN3p6am9uN3p6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1z/T87ByK9WCrpXW/giphy.gif" width="150">\
+            <h1 id="question">Will you be my Valentine?</h1>\
+            <div class="btn-group">\
+                <button id="yesBtn" onclick="showLove()">YES</button>\
+                <button id="noBtn" onmouseover="handleNo()">No</button>\
+            </div>\
+        </div>\
+\
+        <div id="success" class="hidden">\
+            <h1>I knew you'd say yes! \uc0\u55357 \u56470 </h1>\
+            <p id="typed-text"></p>\
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHYzdGR6ZzB6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6Z3Z6JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c7QVD6lKzQByq0fS7y/giphy.gif" width="200">\
+        </div>\
+    </div>\
+\
+    <script>\
+        let yesScale = 1;\
+        let noClicks = 0;\
+        const messages = [\
+            "Are you sure?",\
+            "Really sure??",\
+            "Think again!",\
+            "Last chance...",\
+            "Surely not?",\
+            "You're breaking my heart ;(",\
+            "I'm gonna cry...",\
+            "Okay, now you're just being mean!"\
+        ];\
+\
+        function handleNo() \{\
+            const noBtn = document.getElementById('noBtn');\
+            const yesBtn = document.getElementById('yesBtn');\
+            const question = document.getElementById('question');\
+            \
+            // 1. Make the No button run away\
+            const x = Math.random() * (window.innerWidth - 100);\
+            const y = Math.random() * (window.innerHeight - 50);\
+            noBtn.style.position = 'fixed';\
+            noBtn.style.left = x + 'px';\
+            noBtn.style.top = y + 'px';\
+\
+            // 2. Make the Yes button BIGGER\
+            yesScale += 0.4;\
+            yesBtn.style.transform = `scale($\{yesScale\})`;\
+\
+            // 3. Change the text\
+            if(noClicks < messages.length) \{\
+                question.innerText = messages[noClicks];\
+                noClicks++;\
+            \}\
+        \}\
+\
+        function showLove() \{\
+            document.getElementById('main-content').classList.add('hidden');\
+            document.getElementById('success').classList.remove('hidden');\
+            document.body.style.backgroundColor = '#ffccd5';\
+            \
+            // Trigger Confetti\
+            setInterval(createConfetti, 100);\
+\
+            // Typing effect for personalized message\
+            const message = "Get ready for the best date ever. I've got a whole day planned for us! Check your texts for the location details. XOXO";\
+            let i = 0;\
+            function typeWriter() \{\
+                if (i < message.length) \{\
+                    document.getElementById("typed-text").innerHTML += message.charAt(i);\
+                    i++;\
+                    setTimeout(typeWriter, 50);\
+                \}\
+            \}\
+            typeWriter();\
+        \}\
+\
+        function createConfetti() \{\
+            const symbols = ['\uc0\u10084 \u65039 ', '\u55357 \u56470 ', '\u55356 \u57144 ', '\u10024 ', '\u55356 \u57145 '];\
+            const c = document.createElement('div');\
+            c.classList.add('confetti');\
+            c.innerText = symbols[Math.floor(Math.random() * symbols.length)];\
+            c.style.left = Math.random() * 100 + 'vw';\
+            c.style.animationDuration = (Math.random() * 2 + 1) + 's';\
+            document.body.appendChild(c);\
+            setTimeout(() => c.remove(), 3000);\
+        \}\
+    </script>\
+</body>\
+</html>}
